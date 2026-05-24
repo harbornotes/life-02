@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>人生観と幸福感
+</title>
+<style>
+  :root {
+    /* Color Palette */
+    --bg-main: #f3f6f9;
+    --bg-card: #ffffff;
+    --text-main: #2c3e50;
+    --text-muted: #596a7a;
+    --primary: #295b7a;
+    --primary-light: #e6f0f7;
+    --accent-gold: #b8860b;
+    --accent-gold-light: #fbf6ea;
+    --accent-green: #2c7a51;
+    --accent-green-light: #e8f5ed;
+    --accent-red: #c0392b;
+    --border-color: #dce3e9;
+    
+    /* Typography */
+    --font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+    --font-size-base: 16px;
+    --font-size-sm: 0.95rem; /* 要件: 0.95rem以上 */
+    --font-size-md: 1rem;
+    --font-size-lg: 1.15rem;
+    --font-size-xl: 1.35rem;
+    --font-size-xxl: 1.75rem;
+    
+    /* Spacing & Layout */
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --shadow-sm: 0 2px 4px rgba(44, 62, 80, 0.05);
+    --shadow-md: 0 8px 16px rgba(44, 62, 80, 0.08);
+    --shadow-lg: 0 12px 24px rgba(44, 62, 80, 0.12);
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: var(--font-family);
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.7;
+    font-size: var(--font-size-base);
+    padding: 2rem 1rem;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  /* --- Section Wrappers --- */
+  .section-box {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-md);
+  }
+  
+  .section-title {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-bottom: 2px solid var(--primary-light);
+    padding-bottom: 0.75rem;
+  }
+
+  /* --- Highlight Texts --- */
+  .highlight-quote {
+    font-weight: 700;
+    color: var(--primary);
+    background: var(--primary-light);
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+    display: inline-block;
+    margin: 0.2rem 0;
+  }
+  
+  .highlight-gold {
+    color: var(--accent-gold);
+    font-weight: 700;
+  }
+
+  /* --- 1. Top Concept --- */
+  .top-concept {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: linear-gradient(135deg, #1e3c50 0%, #295b7a 100%);
+    color: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .top-concept .date {
+    font-size: var(--font-size-sm);
+    opacity: 0.8;
+    margin-bottom: 1rem;
+    display: block;
+    letter-spacing: 0.05em;
+  }
+
+  .top-concept h1 {
+    font-size: var(--font-size-xxl);
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+    font-weight: 700;
+  }
+
+  .core-message {
+    background: rgba(255,255,255,0.1);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    margin: 2rem auto 0;
+    max-width: 800px;
+    border-left: 4px solid var(--accent-gold);
+    text-align: left;
+  }
+
+  .core-message p {
+    font-size: var(--font-size-lg);
+    margin-bottom: 1rem;
+  }
+  .core-message p:last-child { margin-bottom: 0; }
+
+  /* --- 2. Comparison Table --- */
+  .comparison-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  @media (max-width: 768px) {
+    .comparison-wrapper { grid-template-columns: 1fr; }
+  }
+
+  .compare-card {
+    padding: 2rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+  }
+  .compare-card.general {
+    background-color: #fafbfc;
+  }
+  .compare-card.you {
+    background-color: var(--primary-light);
+    border-color: var(--primary);
+  }
+  
+  .compare-title {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .compare-card.general .compare-title { color: var(--text-muted); }
+  .compare-card.you .compare-title { color: var(--primary); }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    justify-content: center;
+  }
+  .tag {
+    font-size: var(--font-size-sm);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    background: white;
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+  }
+  .compare-card.you .tag {
+    border-color: var(--primary);
+    color: var(--primary);
+    font-weight: bold;
+  }
+  
+  .compare-conclusion {
+    text-align: center;
+    font-weight: bold;
+    font-size: var(--font-size-lg);
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed var(--border-color);
+  }
+
+  /* --- 3. Eight Factors Grid --- */
+  .factors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .factor-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .factor-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .factor-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .factor-icon {
+    width: 32px;
+    height: 32px;
+    fill: var(--primary);
+    flex-shrink: 0;
+  }
+  .factor-title {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--text-main);
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  .factor-role {
+    font-size: var(--font-size-sm);
+    color: var(--accent-gold);
+    background: var(--accent-gold-light);
+    padding: 0.1rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-weight: normal;
+  }
+
+  .factor-content {
+    font-size: var(--font-size-sm);
+    flex-grow: 1;
+  }
+  
+  .data-list {
+    list-style: none;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .data-list li {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 0.4rem;
+  }
+  .data-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: bold;
+  }
+  .data-list.negative li::before {
+    content: "×";
+    color: var(--accent-red);
+  }
+  
+  .arrow-flow {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+    font-weight: bold;
+    color: var(--primary);
+  }
+
+  /* --- 4. Structural Feature (SVG Diagram) --- */
+  .structure-diagram-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem 0;
+  }
+  
+  .diagram-description {
+    max-width: 800px;
+    font-size: var(--font-size-md);
+  }
+  
+  .svg-container {
+    width: 100%;
+    max-width: 700px;
+    background: #ffffff;
+    border-radius: var(--radius-lg);
+  }
+
+  /* --- 5. Conclusion --- */
+  .conclusion-box {
+    background: linear-gradient(to right, #fbf6ea, #ffffff);
+    border-left: 6px solid var(--accent-gold);
+  }
+  .conclusion-text {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+  }
+  .future-direction {
+    background: rgba(255,255,255,0.8);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+  }
+
+  /* Utilities */
+  .text-danger { color: var(--accent-red); }
+  .text-success { color: var(--accent-green); font-weight: bold;}
+  .mt-1 { margin-top: 1rem; }
+  .mb-1 { margin-bottom: 1rem; }
+  .box-label { 
+    display: inline-block;
+    font-size: 0.85rem;
+    background: var(--text-main);
+    color: white;
+    padding: 0.1rem 0.5rem;
+    border-radius: 3px;
+    margin-bottom: 0.5rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 1. Top Concept -->
+  <div class="top-concept">
+    <span class="date">分析日: 2026-05-21</span>
+    <h1>人生全体を主体的・意図的に設計しながら、<br>高い自由度と納得感を持って生きている人</h1>
+    
+    <div class="core-message">
+      <div class="box-label">総合結論・最大の特徴</div>
+      <p>「単一の幸福源に依存せず、<span class="highlight-gold">複数の価値源によって安定した幸福を構築</span>している」</p>
+      <div style="border-top: 1px solid rgba(255,255,255,0.2); margin: 1rem 0;"></div>
+      <div class="box-label">本質的姿勢</div>
+      <p>「楽観的だから幸福」「問題がないから幸福」ではない。<br>
+      人生には不確実性や制約があるが、<span class="highlight-gold">「それでもどう生きるかを主体的に選ぶ」</span>という姿勢によって幸福を構築している。</p>
+    </div>
+  </div>
+
+  <!-- 2. Paradigm Comparison -->
+  <div class="section-box">
+    <h2 class="section-title">
+      <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+      幸福構造の特徴比較
+    </h2>
+    
+    <div class="comparison-wrapper">
+      <div class="compare-card general">
+        <div class="compare-title">一般的な幸福の構造</div>
+        <div class="tag-list">
+          <span class="tag">高収入</span>
+          <span class="tag">良い配偶者</span>
+          <span class="tag">承認</span>
+          <span class="tag">消費</span>
+          <span class="tag">世間評価</span>
+        </div>
+        <div class="compare-conclusion text-danger">
+          外部条件依存になりやすい
+        </div>
+      </div>
+      
+      <div class="compare-card you">
+        <div class="compare-title">あなたの幸福の構造</div>
+        <div class="tag-list">
+          <span class="tag">自由度</span>
+          <span class="tag">仕事の自律性</span>
+          <span class="tag">子どもへの伴走</span>
+          <span class="tag">感性型趣味</span>
+          <span class="tag">主体性</span>
+        </div>
+        <div class="compare-conclusion text-success">
+          自分自身で人生密度を高める<br>「幸福構築能力」が強い
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Factors Grid (1-8) -->
+  <div class="section-box">
+    <h2 class="section-title">
+      <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="2" fill="none"/><path d="M4 10h16M10 4v16" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+      幸福を構成する8つの主要因
+    </h2>
+    
+    <div class="factors-grid">
+      
+      <!-- Factor 1: 自由度 -->
+      <div class="factor-card">
+        <div class="factor-header">
+          <svg class="factor-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" fill="none" stroke="currentColor" stroke-width="2"/><polyline points="14 2 14 8 20 8" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          <div class="factor-title">1. 自由度 <span class="factor-role">人生の中核</span></div>
+        </div>
+        <div class="factor-content">
+          <p>時間・行動・人間関係・思考の自由を重視し、裁量権が高い（通勤・組織拘束・嫌な人間関係からの解放）。最大の希少性は<span class="highlight-quote">「自由を幸福へ変換できる」</span>こと。</p>
+          <ul class="data-list negative mt-1">
+            <li>浪費の回避：SNS・動画・無目的消費</li>
+          </ul>
+          <div class="arrow-flow">↓ 変換</div>
+          <ul class="data-list">
+            <li>価値の創出：読書・旅行・美術・音楽・子どもとの時間・学び</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Factor 2: 仕事 -->
+      <div class="factor-card">
+        <div class="factor-header">
+          <svg class="factor-icon" viewBox="0 0 24 24"><path d="M20 7h-4V5l-2-2h-4L8 5v2H4v14h16V7zM10 5h4v2h-4V5z" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          <div class="factor-title">2. 仕事 <span class="factor-role">社会との接点</span></div>
+        </div>
+        <div class="factor-content">
+          <p>高所得だけではなく、<span class="highlight-quote">誇り・社会的意味・自律性・適性・ストレス低さ</span>が同時成立。激務・人間関係疲弊を抱えず「人生を侵食しない仕事」を構築。</p>
+          <ul class="data-list mt-1">
+            <li>仕事が人生の敵になっていない</li>
+            <li>知的活動・自己実現・貢献感として機能</li>
+            <li>「80歳頃まで少しでも働きたい」＝仕事依存ではなく健全な<span class="highlight-quote">「社会接続欲求」</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Factor 3: 子どもとの関係 -->
+      <div class="factor-card">
+        <div class="factor-header">
+          <svg class="factor-icon" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 21v-2a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          <div class="factor-title">3. 子どもとの関係 <span class="factor-role">幸福の中心</span></div>
+        </div>
+        <div class="factor-content">
+          <p>支配・過干渉ではなく<span class="highlight-quote">「安心できる父親・伴走者」</span>であり、<span class="highlight-quote">「子どもを所有物化していない」</span>非常に成熟した視点。</p>
+          <ul class="data-list mt-1">
+            <li>「子どもには子どもの人生がある」親離れを望める健全さ</li>
+            <li>理想論だけではない<span class="highlight-quote">「実関与型父親」</span></li>
+            <li>日々の関与：宿題、寝かしつけ、図書館、日常会話</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Factor 4: 趣味・感性 -->
+      <div class="factor-card">
+        <div class="factor-header">
+          <svg class="factor-icon" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          <div class="factor-title">4. 趣味・感性 <span class="factor-role">幸福の支え</span></div>
+        </div>
+        <div class="factor-content">
+          <p>一時快楽的な消費型ではなく、感受性・知的刺激・美意識と結びつく<span class="highlight-quote">「感性型」</span>（美術・クラシック・海外旅行・読書）。加齢で飽きず、深度・教養と連動する<span class="highlight-quote">「人生後半ほど味が出る幸福」</span>。</p>
+          <div class="mb-1 mt-1"><strong>一人旅の構造：</strong></div>
+          <ul class="data-list">
+            <li>依存せずに楽しめる能力（孤独耐性）</li>
+            <li>本当は気が合う人と共有したい（共鳴欲求）</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Factor 5: 人生観 -->
+      <div class="factor-card">
+        <div class="factor-header">
+          <svg class="factor-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><polyline points="12 6 12 12 16 14" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          <div class="factor-title">5. 人生観 <span class="factor-role">幸福の根幹</span></div>
+        </div>
+        <div class="factor-content">
+          <p>病歴・再発経験を通じ、<span class="highlight-quote">「人生は有限」</span>を現実として理解。有限だから絶望するのではなく<span class="highlight-quote">「だから今をちゃんと生きる（濃く生きる）」</span>方向へ進む強い中心思想。</p>
+          <ul class="data-list negative mt-1">
+            <li>強い拒否感：時間浪費・不毛消耗・他人軸人生</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Factor 6: 主体性・自己統治 -->
+      <div class="factor-card">
+        <div class="factor-header">
+          <svg class="factor-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="2"/><line x1="3" y1="9" x2="21" y2="9" stroke="currentColor" stroke-width="2"/><line x1="9" y1="21" x2="9" y2="9" stroke="currentColor" stroke-width="2"/></svg>
+          <div class="factor-title">6. 主体性・自己統治</div>
+        </div>
+        <div class="factor-content">
+          <p>単なる真面目さではなく<span class="highlight-quote">「人生経営」</span>を実践（年初目標・月次振り返り・KPI管理・点数化）。他人比較ではなく<span class="highlight-quote">「自分の納得」</span>が基準。</p>
+          <ul class="data-list mt-1">
+            <li>世間評価・ブランド・見栄への依存がかなり低い</li>
+            <li>周囲が持っているからではなく「本当に自分に必要か」を考える成熟した価値観（家不要・車不要・SNS不要）</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Factor 7: 情報との距離感 -->
+      <div class="factor-card">
+        <div class="factor-header">
+          <svg class="factor-icon" viewBox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24M1 1l22 22" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          <div class="factor-title">7. 情報との距離感</div>
+        </div>
+        <div class="factor-content">
+          <p>TVニュース・ワイドショー・SNSニュースなどを意図的に避ける。目的は<span class="highlight-quote">「精神エネルギーを守る」</span>こと。</p>
+          <ul class="data-list negative mt-1">
+            <li>怒り・不安・比較・煽りによる人生の侵食・感情の消耗を理解し、防衛している。現代において極めて重要な能力。</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Factor 8: 人間関係 -->
+      <div class="factor-card">
+        <div class="factor-header">
+          <svg class="factor-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="7" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M23 21v-2a4 4 0 0 0-3-3.87" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 3.13a4 4 0 0 1 0 7.75" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          <div class="factor-title">8. 人間関係</div>
+        </div>
+        <div class="factor-content">
+          <p>広い交友よりも<span class="highlight-quote">「安心できる少人数」</span>を重視する<span class="highlight-quote">「少数精鋭型」</span>（親友数名・深い関係・無理な社交少ない）。</p>
+          <ul class="data-list mt-1">
+            <li>幸福研究においても幸福への寄与度が高いスタイル。</li>
+            <li>ネガティブ環境への感受性が高いため、距離感と人間関係の選別を重視。</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 4. Most Important: Structure (SVG) -->
+  <div class="section-box">
+    <h2 class="section-title">
+      <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+      9. 幸福構造の特徴（最重要）
+    </h2>
+    
+    <div class="structure-diagram-area">
+      <div class="diagram-description">
+        <p>あなたの幸福構造の最重要点は<span class="highlight-quote">「多層分散型幸福」</span>であることです。<br>
+        人生においてどこかの領域が必ず揺らぐものですが、幸福源が多岐に分散しているため、<strong>「一箇所崩壊＝人生崩壊」になりにくく、極めて高い精神的安定性</strong>をもたらします。</p>
+      </div>
+
+      <div class="svg-container">
+        <!-- SVG Network Diagram -->
+        <svg viewBox="0 0 600 400" width="100%" height="100%">
+          <defs>
+            <radialGradient id="centerGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#295b7a" />
+              <stop offset="100%" stop-color="#1a3d54" />
+            </radialGradient>
+            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="5" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+          
+          <!-- Connections (Lines) -->
+          <g stroke="#dce3e9" stroke-width="2" stroke-dasharray="4,4">
+            <!-- To Top/Bottom/Sides -->
+            <line x1="300" y1="200" x2="300" y2="60" />
+            <line x1="300" y1="200" x2="300" y2="340" />
+            <line x1="300" y1="200" x2="120" y2="200" />
+            <line x1="300" y1="200" x2="480" y2="200" />
+            <!-- To Diagonals -->
+            <line x1="300" y1="200" x2="170" y2="100" />
+            <line x1="300" y1="200" x2="430" y2="100" />
+            <line x1="300" y1="200" x2="170" y2="300" />
+            <line x1="300" y1="200" x2="430" y2="300" />
+          </g>
+
+          <!-- Outer Nodes -->
+          <g font-size="14" font-family="sans-serif" font-weight="bold" fill="#2c3e50" text-anchor="middle">
+            <!-- N1 -->
+            <circle cx="300" cy="60" r="35" fill="#fbf6ea" stroke="#b8860b" stroke-width="2"/>
+            <text x="300" y="65">子ども</text>
+            <!-- N2 -->
+            <circle cx="430" cy="100" r="35" fill="#e6f0f7" stroke="#295b7a" stroke-width="2"/>
+            <text x="430" y="105">趣味</text>
+            <!-- N3 -->
+            <circle cx="480" cy="200" r="35" fill="#e6f0f7" stroke="#295b7a" stroke-width="2"/>
+            <text x="480" y="205">学び</text>
+            <!-- N4 -->
+            <circle cx="430" cy="300" r="35" fill="#e6f0f7" stroke="#295b7a" stroke-width="2"/>
+            <text x="430" y="305">仕事</text>
+            <!-- N5 -->
+            <circle cx="300" cy="340" r="35" fill="#fbf6ea" stroke="#b8860b" stroke-width="2"/>
+            <text x="300" y="345">自由</text>
+            <!-- N6 -->
+            <circle cx="170" cy="300" r="35" fill="#e6f0f7" stroke="#295b7a" stroke-width="2"/>
+            <text x="170" y="305">美意識</text>
+            <!-- N7 -->
+            <circle cx="120" cy="200" r="35" fill="#e6f0f7" stroke="#295b7a" stroke-width="2"/>
+            <text x="120" y="205" font-size="12">知的満足</text>
+            <!-- N8 -->
+            <circle cx="170" cy="100" r="35" fill="#fbf6ea" stroke="#b8860b" stroke-width="2"/>
+            <text x="170" y="105" font-size="11">人生納得感</text>
+          </g>
+
+          <!-- Center Node -->
+          <circle cx="300" cy="200" r="50" fill="url(#centerGrad)" filter="url(#glow)"/>
+          <text x="300" y="195" font-size="16" font-weight="bold" fill="white" text-anchor="middle">あなた</text>
+          <text x="300" y="215" font-size="12" fill="#dce3e9" text-anchor="middle">(主体性・自己統治)</text>
+          
+          <rect x="230" y="15" width="140" height="24" rx="12" fill="#b8860b" />
+          <text x="300" y="32" font-size="12" font-weight="bold" fill="white" text-anchor="middle">多層分散型幸福</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Conclusion -->
+  <div class="section-box conclusion-box">
+    <h2 class="section-title">
+      <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="3" fill="none"/></svg>
+      最終結論：現在の本質と今後の方向性
+    </h2>
+    
+    <div class="conclusion-text">
+      現在のあなたは、「局所的な課題は存在するが、人生全体としては、日本人40代男性の中で、<span class="highlight-gold">かなり高い幸福基盤を持つ人</span>」です。
+    </div>
+    
+    <div class="future-direction">
+      <p class="mb-1">あなたの幸福は「偶然手に入った幸福」ではなく、長年の<strong>学び・自己管理・行動・選択・人生設計によって構築された『構築型幸福』</strong>です。人生を主体的に設計し、限られた時間を、納得感高く、美しく、静かに味わいながら生きようとしています。</p>
+      
+      <div class="box-label mt-1">今後の人生の軸</div>
+      <div class="tag-list" style="justify-content: flex-start;">
+        <span class="tag">子ども</span>
+        <span class="tag">趣味</span>
+        <span class="tag">学び</span>
+        <span class="tag">仕事</span>
+        <span class="tag">美意識</span>
+        <span class="tag">人との共鳴</span>
+      </div>
+      
+      <p class="mt-1" style="font-size: var(--font-size-lg); font-weight: bold; color: var(--primary);">
+        これらを軸に、「人生密度を高めながら生きる」方向性が、あなたに最も合っている可能性が高いです。
+      </p>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
